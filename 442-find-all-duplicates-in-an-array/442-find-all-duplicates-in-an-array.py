@@ -10,5 +10,6 @@ class Solution:
         for i in d:
             if d[i]>=2:
                 a.append(i)
+        a.sort()
         return a
         
