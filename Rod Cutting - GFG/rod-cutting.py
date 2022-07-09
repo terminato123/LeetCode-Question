@@ -2,20 +2,22 @@
 
 class Solution:
     def cutRod(self, price, n):
-        INT_MIN=-3456
-        val = [0 for x in range(n+1)]
-        val[0] = 0
-     
-        # Build the table val[] in bottom up manner and return
-        # the last entry from the table
-        for i in range(1, n+1):
-            max_val = INT_MIN
-            for j in range(i):
-                 max_val = max(max_val, price[j] + val[i-j-1])
-            val[i] = max_val
-     
-        return val[n]
-        
+        a=[]
+        k=len(price)
+        for i in range(1,n+1):
+            a.append(i)
+        dp=[[0]*(n+1) for i in range(len(price)+1)]
+        for i in range(n+1):
+            dp[i][0]=0
+        for j in range(n+1):
+            dp[0][j]=0
+        for i in range(1,n+1):
+            for j in range(1,n+1):
+                if a[i-1]<=j:
+                    dp[i][j]=max((price[i-1]+dp[i][j-a[i-1]]),dp[i-1][j])
+                else:
+                    dp[i][j]=dp[i-1][j]
+        return dp[k][n]
                 
         #code here
 
